@@ -23,18 +23,33 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps(context) {
-  await delay(3500);
+  const result = await fetch(`https://api.github.com/users/${'Aquilesxd100'}/repos`)
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Erro ao buscar os repositórios do usuário');
+      }
+      return response.json();
+    })
+    .then(repositories => {
+      console.log(repositories); // Aqui você pode manipular os dados dos repositórios recebidos da API
+    })
+    .catch(error => {
+      console.error('Houve um problema ao buscar os repositórios do usuário:', error);
+    });
+
   const id = context.params.id;
 
   return {
     props: {
       imgsSeguradoras: imgsData,
       id: id,
+      response: JSON.stringify(result)
     },
   }
 }
 
 export default function Page(props) {
+  console.log(props.response)
   return (
     <div
       style={{
