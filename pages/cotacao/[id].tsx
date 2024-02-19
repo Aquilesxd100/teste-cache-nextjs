@@ -31,7 +31,7 @@ export async function getStaticProps(context) {
       return response.json();
     })
     .then(repositories => {
-      console.log(repositories); // Aqui você pode manipular os dados dos repositórios recebidos da API
+      return repositories
     })
     .catch(error => {
       console.error('Houve um problema ao buscar os repositórios do usuário:', error);
@@ -43,7 +43,7 @@ export async function getStaticProps(context) {
     props: {
       imgsSeguradoras: imgsData,
       id: id,
-      response: JSON.stringify(result)
+      response: result ? JSON.stringify(result) : null
     },
   }
 }
