@@ -4,13 +4,33 @@ function delay(ms) {
   return new Promise(resolve => setTimeout(resolve, ms))
 }
 
+export async function getStaticPaths() {
+  return {
+    paths: [
+      {
+        params: {
+          id: '1'
+        }
+      },
+      {
+        params: {
+          id: '2'
+        }
+      },      
+    ],
+    fallback: 'blocking'
+  }
+}
+
 export async function getStaticProps(context) {
   await delay(5000);
+  const id = context.params.id;
 
   return {
     props: {
-      imgsSeguradoras: imgsData
-    }
+      imgsSeguradoras: imgsData,
+      id: id,
+    },
   }
 }
 
@@ -22,6 +42,7 @@ export default function Page(props) {
         justifyContent: "center"
       }}
     >
+      <h1>{props.id}</h1>
       {
         props.imgsSeguradoras.map((segImg) => 
           <div 
