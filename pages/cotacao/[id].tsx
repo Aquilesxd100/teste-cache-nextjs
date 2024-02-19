@@ -23,7 +23,7 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps(context) {
-  await delay(12000);
+  await delay(5000);
   const id = context.params.id;
 
   return {
@@ -42,7 +42,6 @@ export default function Page(props) {
         justifyContent: "center"
       }}
     >
-      <h1>{props.id}</h1>
       {
         props.imgsSeguradoras.map((segImg) => 
           <div 
