@@ -33,6 +33,24 @@ export async function getStaticProps(context) {
     .then(repositories => {
       return repositories
     })
+    .then(async () => {
+      const result2 = await fetch(`https://api.github.com/users/${'LUKKA55'}/repos`)
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Erro ao buscar os repositórios do usuário');
+          }
+          return response.json();
+        })
+          .then(async () => {
+            const result3 = await fetch(`https://api.github.com/users/${'dev-growdev'}/repos`)
+              .then(response2 => {
+                if (!response2.ok) {
+                  throw new Error('Erro ao buscar os repositórios do usuário');
+                }
+                return result3.json();
+              })
+        })
+    })
     .catch(error => {
       console.error('Houve um problema ao buscar os repositórios do usuário:', error);
     });
@@ -43,7 +61,7 @@ export async function getStaticProps(context) {
     props: {
       imgsSeguradoras: imgsData,
       id: id,
-      response: result ? JSON.stringify(result) : null
+      response: null
     },
   }
 }
