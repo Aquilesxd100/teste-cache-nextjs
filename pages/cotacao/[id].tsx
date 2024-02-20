@@ -47,7 +47,7 @@ export async function getStaticProps(context) {
                 if (!response2.ok) {
                   throw new Error('Erro ao buscar os repositórios do usuário');
                 }
-                return result3.json();
+                return null;
               })
         })
     })
